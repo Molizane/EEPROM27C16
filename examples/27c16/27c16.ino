@@ -30,7 +30,7 @@ void setup()
 {
   Serial.begin(250000);           //inicializa Serial em 250000 bits por segundo
 
-  e2716.erase();                //apaga EEPROM
+  //e2716.erase();                //apaga EEPROM
 
   // ===============================================================
 
