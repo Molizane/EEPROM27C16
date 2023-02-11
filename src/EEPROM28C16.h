@@ -1,12 +1,12 @@
-#ifndef EEPROM27C16_h
-#define EEPROM27C16_h
+#ifndef EEPROM28C16_h
+#define EEPROM28C16_h
 
 #include <Arduino.h>
 
-class EEPROM27C16 {
+class EEPROM28C16 {
   public:
-    EEPROM27C16();
-    EEPROM27C16(uint8_t data, uint8_t latch, uint8_t clk, uint8_t write, uint8_t databus);
+    EEPROM28C16();
+    EEPROM28C16(uint8_t data, uint8_t latch, uint8_t clk, uint8_t write, uint8_t databus);
 
     byte read(uint16_t address);               //função para leitura da EEPROM
     byte write(uint16_t address, byte data);   //função para escrita da EEPROM

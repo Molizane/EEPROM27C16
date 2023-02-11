@@ -1,8 +1,8 @@
 
 #include <Arduino.h>
-#include "EEPROM27C16.h"
+#include "EEPROM28C16.h"
 
-EEPROM27C16::EEPROM27C16(uint8_t data, uint8_t latch, uint8_t clk, uint8_t write, uint8_t databus)
+EEPROM28C16::EEPROM28C16(uint8_t data, uint8_t latch, uint8_t clk, uint8_t write, uint8_t databus)
 {
   shift_data  = data;        //dados do shift register 74HC595
   shift_latch = latch;       //latch do shift register 74HC595
@@ -14,7 +14,7 @@ EEPROM27C16::EEPROM27C16(uint8_t data, uint8_t latch, uint8_t clk, uint8_t write
   begin();
 }
 
-EEPROM27C16::EEPROM27C16()
+EEPROM28C16::EEPROM28C16()
 {
   shift_data  = 10; //dados do shift register 74HC595
   shift_latch = 11; //latch do shift register 74HC595
@@ -26,7 +26,7 @@ EEPROM27C16::EEPROM27C16()
   begin();
 }
 
-void EEPROM27C16::begin()
+void EEPROM28C16::begin()
 {
   pinMode(shift_latch, OUTPUT);   //saída para latch
   pinMode(shift_data,  OUTPUT);   //saída para dados
@@ -35,7 +35,7 @@ void EEPROM27C16::begin()
   pinMode(write_en, OUTPUT);      //saída para write_en
 }
 
-void EEPROM27C16::setAddress(uint16_t address, bool outEnable)
+void EEPROM28C16::setAddress(uint16_t address, bool outEnable)
 {
   // Seleciona os 3 bits mais significativos de endereço com bit outEnable
   shiftOut(shift_data, shift_clk, MSBFIRST, (address >> 8) | (outEnable ? 0x00 : 0x80));
@@ -49,7 +49,7 @@ void EEPROM27C16::setAddress(uint16_t address, bool outEnable)
   digitalWrite(shift_latch,  LOW);
 } //end setAddress
 
-byte EEPROM27C16::read(uint16_t address)
+byte EEPROM28C16::read(uint16_t address)
 {
   //configura pinos de dados como entrada
   for (uint8_t pin = EEPROM_D0; pin <= EEPROM_D7; pin += 1)
@@ -66,7 +66,7 @@ byte EEPROM27C16::read(uint16_t address)
   return data;                 //retorna o dado lido
 } //end read
 
-byte EEPROM27C16::write(uint16_t address, byte data)
+byte EEPROM28C16::write(uint16_t address, byte data)
 {
   //configura os pinos de dados como saída
   for (uint8_t pin = EEPROM_D0; pin <= EEPROM_D7; pin += 1)
@@ -88,7 +88,7 @@ byte EEPROM27C16::write(uint16_t address, byte data)
   delay(10);
 } //end write
 
-void EEPROM27C16::erase()
+void EEPROM28C16::erase()
 {
   for (int address = 0; address <= 2047; address += 1)  //apaga EEPROM escrevendo FFh em
     write(address, 0xFF);                           //todos os endereços
